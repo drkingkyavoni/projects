@@ -1,0 +1,13 @@
+---
+- name: Add nameserver entry if not already entered
+  hosts: localhost
+  become: 'yes'
+  vars:
+    ip: '10.0.250.10'
+  tasks:
+    - name: Get content of /etc/resolv.conf
+      command: 'cat /etc/resolv.conf'
+      register: command_output
+    - name: Add nameserver entry to /etc/resolv.conf
+      command: echo "nameserver {{ ip }}" >> /etc/resolv.conf
+      when: command_output.stdout.find(ip) == -1

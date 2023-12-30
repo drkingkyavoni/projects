@@ -1,0 +1,7 @@
+---
+- name: Execute nginx
+  host: all
+  become: yes
+  tasks:
+  - service: 'name=nginx state=started'
+    when: ansible_host == 'node02'

@@ -1,0 +1,11 @@
+---
+- name: Start Docker Service
+  hosts: localhost
+  become: 'yes'
+  tasks:
+    - name: Start docker service
+      ansible.builtin.service: 'name=docker state=started'
+      register: command_output
+
+    - name: Debug the output
+      debug: 'msg={{ command_output }}'
