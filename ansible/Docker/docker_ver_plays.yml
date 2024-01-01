@@ -2,10 +2,10 @@
 - name: Display Docker Version Play
   hosts: localhost
   become: 'yes'
+  gather_facts: 'yes'
   tasks:
     - name: Get version of docker
       ansible.builtin.command: docker version
       register: command_output
-
     - debug:
         msg: "{{ command_output.stdout_lines }}"

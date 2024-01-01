@@ -1,0 +1,11 @@
+---
+- name: Stop Docker Service
+  hosts: localhost
+  become: 'yes'
+  tasks:
+    - name: Stop docker service
+      ansible.builtin.service: 'name=docker state=stopped'
+      register: command_output
+
+    - name: Debug the output
+      debug: 'msg={{ command_output }}'

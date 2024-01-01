@@ -3,9 +3,13 @@
   hosts: localhost
   become: 'yes'
   tasks:
+    - name: Get docker status
+      ansible.builtin.service_facts:
+
     - name: Start docker service
       ansible.builtin.service: 'name=docker state=started'
       register: command_output
 
     - name: Debug the output
-      debug: 'msg={{ command_output }}'
+      debug:
+        msg: '{{ command_output }}'

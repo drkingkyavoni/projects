@@ -1,0 +1,6 @@
+    - name: Get docker status
+      ansible.builtin.command: docker info
+      register: command_output
+
+    - name: Debug the output
+      debug: 'msg={{ command_output.stdout }}'
