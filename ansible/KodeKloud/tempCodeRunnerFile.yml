@@ -1,3 +1,7 @@
+---
+- hosts: all
+  become: yes
+  tasks:
     - name: Get docker status
       ansible.builtin.command: docker info
       register: command_output

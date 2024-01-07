@@ -1,0 +1,8 @@
+---
+- hosts: web1
+  tasks:
+  - name: Unarchive remote archive
+    unarchive:
+      src: https://github.com/kodekloudhub/Hello-World/archive/master.zip
+      dest: /root
+      remote_src: yes

@@ -1,0 +1,23 @@
+---
+- hosts: web2
+  tasks:
+    - name: Install httpd package
+      package: name=httpd,firewalld state=installed
+
+    - name: Start httpd service
+      service: name='{{ item }}' state=started enabled=yes
+      with_items:
+      - firewalld
+      - httpd
+
+    - name: Change Apache port
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "Listen 80"
+        replace: "Listen 8082"
+
+    - name: Restart Apache service
+      service: name=httpd state=restarted
+
+    - name: Allow port 8082 in public zone
+      firewalld: port=8082/tcp permanent=true immediate=true zone=public state=enabled

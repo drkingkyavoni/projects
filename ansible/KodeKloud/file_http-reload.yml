@@ -1,0 +1,8 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: 'Copy Apache welcome file'
+      copy: 'src=index.html dest: /var/www/html/index.html'
+    - service: name=httpd state=reloaded

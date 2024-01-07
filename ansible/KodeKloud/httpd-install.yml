@@ -1,0 +1,7 @@
+---
+- name: Install httpd package
+  hosts: web1
+  become: yes
+  tasks:
+  - name: Install httpd
+    yum: name=httpd state=installed

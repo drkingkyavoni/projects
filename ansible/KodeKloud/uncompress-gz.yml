@@ -1,0 +1,8 @@
+---
+- hosts: web1
+  tasks:
+  - name: Extract gz
+    unarchive: src=/root/data.tar.gz dest=/srv remote_src=yes
+
+  - name: Remove the old file
+    file: path=/root/data.tar.gz state=absent

@@ -1,0 +1,10 @@
+---
+- hosts: web1
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: replace text
+    replace: path=/etc/httpd/conf/httpd.conf regexp="80" replace="8080"
+
+  - name: restart httpd
+    service: name=httpd state=restarted enabled=yes

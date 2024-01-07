@@ -1,0 +1,5 @@
+---
+- hosts: web1
+  tasks:
+  - name: Zip archive
+    archive: path=/opt dest=/root/opt.zip format=zip

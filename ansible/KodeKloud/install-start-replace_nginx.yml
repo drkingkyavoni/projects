@@ -1,0 +1,19 @@
+---
+- hosts: web1
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Install NGINX
+    package: name=nginx state=installed
+
+  - name: Start Nginx service
+    service: name=nginx state=started enabled=yes
+
+  - name: Extract nginx
+    unarchive: src=/root/nginx.zip dest=/usr/share/nginx/html remote_src=yes
+
+  - name: Replace text
+    replace:
+      regexp: 'This is sample html code'
+      replace: 'This is KodeKloud Ansible lab'
+      path: /usr/share/nginx/html/index.html

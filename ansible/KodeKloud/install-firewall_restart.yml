@@ -1,0 +1,9 @@
+---
+- hosts: web1
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Install firewall package
+    package: name=firewalld state=present
+  - name: Start firewall service
+    service: name=firewalld state=started enabled=yes

@@ -1,0 +1,8 @@
+---
+- hosts: web1
+  gather_facts: yes
+  tasks:
+  - name: Create index file
+    copy:
+      content: 'This line was added using Ansible lineinfile module!'
+      dest: /var/www/html/index.html

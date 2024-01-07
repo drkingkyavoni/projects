@@ -1,0 +1,12 @@
+---
+- hosts: web1
+  tasks:
+  - name: Compress multiple files
+    archive:
+      path:
+      - /root/file1.txt
+      - /usr/local/share/file2.txt
+      - /var/log/lastlog
+      dest: /root/files.tar.bz2
+      format: bz2
+      remote_src: yes
