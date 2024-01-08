@@ -1,0 +1,6 @@
+---
+- hosts: node00
+  become: yes
+  tasks:
+  - name: update packages
+    cron: name='yum update' user=root job='yum -y update' minute=5 hour=8 weekday=0 cron_file=ansible_yum

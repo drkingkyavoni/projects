@@ -1,0 +1,5 @@
+---
+- hosts: node00
+  tasks:
+  - name: clean up job
+    cron: name='cleanup' job='rm -rf /tmp/*' special_time=reboot

@@ -1,0 +1,5 @@
+---
+- hosts: node00
+  tasks:
+  - name: "Remove old cron"
+    cron: name="Check Memory" state=absent

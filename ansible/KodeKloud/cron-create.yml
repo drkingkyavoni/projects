@@ -1,0 +1,5 @@
+---
+- hosts: node00
+  tasks:
+  - name: "clear lastlog"
+    cron: name='clear logs' job='echo "" > /var/log/lastlog' hour=0 minute=0

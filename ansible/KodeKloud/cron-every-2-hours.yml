@@ -1,0 +1,5 @@
+---
+- hosts: node00
+  tasks:
+  - name: "free memory check"
+    cron: name='free mem' job='sh /root/free.sh' hour='*/2' minute=0
