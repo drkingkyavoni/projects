@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  become: yes
+  connection: local
+  tasks:
+  - name: Install Firewalld
+    package: name=firewalld state=absent
+
+  - name: Start firewalld service
+    service: name=firewalld state=stopped enabled=no
+
+  - name: Print service status
+    command: systemctl status firewalld
+    register: print_fw_service
+
+  - name: Check service status
+    debug:
+      msg: "{{ print_fw_service.stdout }}"
