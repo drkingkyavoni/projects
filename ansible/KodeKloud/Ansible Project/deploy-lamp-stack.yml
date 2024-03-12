@@ -1,0 +1,43 @@
+---
+- name: Deploy lamp stack application
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install common dependencies
+      yum:
+        name:
+          - libselinux-python
+          - libsemanage-python
+          - firewalld
+        state: installed
+
+- name: install db and python
+  hosts: lamp-db
+  become: yes
+  tasks:
+    - name: Install DB package
+      package: name=mariadb-server,MySQL-python state=installed
+
+    - name: Copy the MySQL Configuration file
+      copy: src=files/my.cnf dest=/etc/my.cnf
+
+    - name: Start and enable service
+      service: name='{{ item }}' state=started enabled=yes
+      with_items:
+        - mariadb
+        - firewalld
+
+    - name: insert firewall rule
+      firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+
+    - name: create sql db
+      mysql_db: name={{ dbname }} state=present
+
+    - name: create db user
+      mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL host='172.20.1.100' state=present
+
+    - name: move dbscript
+      copy: src=files/db-load-script.sql dest=/tmp/db-load-script.sql
+
+    - name: load inventory data
+      shell: mysql -f < /tmp/db-load-script.sql
